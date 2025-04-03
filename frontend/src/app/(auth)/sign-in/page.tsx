@@ -18,7 +18,7 @@ const SignIn = () => {
           <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-gray-500 transition ">Login</button>          
           <div className="mt-7 text-center text-md">
             <p className="text-white/100">Don&apos;t have an account?</p>
-            <Link href="/signup" className="flex flex-col items-center">
+            <Link href="/sign-up" className="flex flex-col items-center">
               <p className="text-blue-700 font-semibold ">Sign up</p>
             </Link>
           </div>
