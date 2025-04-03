@@ -2,9 +2,12 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 const SignUp = () => {
   return (
+    <>
+    <Navbar/>
     <div className="relative w-full h-screen flex justify-center items-center bg-gray-100">     
       <div className="absolute inset-0 bg-black/20 backdrop-blur-3xl">
         <Image src="/loginbg.jpg" alt="" fill sizes="100%" className="w-full h-full object-cover" />
@@ -14,9 +17,9 @@ const SignUp = () => {
           <Image src="/loginbg.jpg" alt="Login Image" fill className="object-cover rounded-lg" />
         </div>
         <div className="relative w-1/2 flex flex-col gap-4 ml-5">
-          <input type="text" placeholder="Email" className="px-4 py-2 border rounded-md w-full bg-white/100 backdrop-blur-xl " />
+          <input type="text" placeholder="Username" className="px-4 py-2 border rounded-md w-full bg-white/100 backdrop-blur-xl " />
+          <input type="password" placeholder="Email" className="px-4 py-2 border rounded-md w-full bg-white/100 backdrop-blur-xl" />
           <input type="password" placeholder="Password" className="px-4 py-2 border rounded-md w-full bg-white/100 backdrop-blur-xl" />
-          <input type="password" placeholder="Confirm Password" className="px-4 py-2 border rounded-md w-full bg-white/100 backdrop-blur-xl" />
           <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-gray-500 transition ">Signup</button>
          
           <div className="mt-7 text-center text-md">
@@ -28,6 +31,7 @@ const SignUp = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

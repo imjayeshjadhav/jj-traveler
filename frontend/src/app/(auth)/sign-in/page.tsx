@@ -2,8 +2,11 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 const SignIn = () => {
   return (
+    <>
+    <Navbar/>
     <div className="relative w-full h-screen flex justify-center items-center bg-gray-100">      
       <div className="absolute inset-0 bg-black/20 backdrop-blur-3xl">
         <Image src="/loginbg.jpg" alt="" fill sizes="100%" className="w-full h-full object-cover" />
@@ -25,6 +28,7 @@ const SignIn = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 export default SignIn;
