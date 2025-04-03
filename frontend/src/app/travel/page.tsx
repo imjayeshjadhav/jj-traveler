@@ -2,24 +2,33 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import L, { Marker } from "leaflet";
+import "leaflet/dist/leaflet.css";
 import { summer, winter, monsoon } from "../../components/data";
 import { initializeMap, addMarker, handleGetLocation } from "@/lib/actions";
-import "leaflet/dist/leaflet.css";
 
+//  No direct Leaflet import at the top
 type Place = {
   name: string;
-  location: L.LatLngExpression;
+  location: [number, number];
   description: string;
 };
 
 const Travel: React.FC = () => {
-  const mapRef = useRef<L.Map | null>(null);
+  const mapRef = useRef<any>(null);
   const [selectedSeason, setSelectedSeason] = useState<string>("");
-  const markersRef = useRef<Marker[]>([]);
+  const markersRef = useRef<any[]>([]);
+  const [L, setL] = useState<any>(null); //  Store Leaflet dynamically
 
   useEffect(() => {
-    if (typeof window === "undefined") return; // Ensure code only runs on client side
+    if (typeof window === "undefined") return; // Runs only in the browser
+
+    import("leaflet").then((Leaflet) => {
+      setL(Leaflet); // Load Leaflet dynamically
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!L || !mapRef.current) return; // Ensure Leaflet is loaded
 
     const map = initializeMap(mapRef);
     if (!map) return;
@@ -30,10 +39,10 @@ const Travel: React.FC = () => {
       map.remove();
       mapRef.current = null;
     };
-  }, []);
+  }, [L]);
 
   useEffect(() => {
-    if (!mapRef.current) return;
+    if (!L || !mapRef.current) return;
 
     markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = [];
@@ -46,7 +55,7 @@ const Travel: React.FC = () => {
     places.forEach((place) => {
       addMarker(mapRef.current!, markersRef, place.location, `<b>${place.name}</b><br>${place.description}`);
     });
-  }, [selectedSeason]);
+  }, [selectedSeason, L]);
 
   return (
     <div>
@@ -75,5 +84,5 @@ const Travel: React.FC = () => {
   );
 };
 
-// Prevents SSR to avoid "window is not defined" error
+// ✅ Prevents SSR to avoid "window is not defined" error
 export default dynamic(() => Promise.resolve(Travel), { ssr: false });
