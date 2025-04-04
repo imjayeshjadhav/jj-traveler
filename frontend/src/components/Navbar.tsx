@@ -7,7 +7,7 @@ import Image from "next/image";
 import Button from "./Button";
 import { useRouter } from "next/navigation";
 
-const navItems: string[] = ["Profile", "News", "About", "Contact"];
+const navItems: string[] = ["", "", "About", "Contact"];
 
 const Navbar: React.FC = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
