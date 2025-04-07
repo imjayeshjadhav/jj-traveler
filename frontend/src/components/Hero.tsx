@@ -4,23 +4,37 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
 import Button from './Button'
+import { User } from 'lucide-react'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import LogOut from './LogOut'
 gsap.registerPlugin(ScrollTrigger)
 
 const Hero = () => {
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token);
+    }, []);
+
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        setIsOpen(false);
+    };
 
     const [currentIndex, setCurrentIndex] = useState(1)
     const[hasClicked , setHasClicked] = useState(false)
     const [isLoading , setIsLoading] = useState(false) 
     const [loadedVideos, setLoadedVideos]  = useState(0)
+    const [showDropdown, setShowDropdown] = useState(false)
 
     const totalVideos = 4;
     const nextVideoRef = useRef<HTMLVideoElement | null>(null);
-
-    // 0/4 = 0 + 1 => 1N
-    // 1/4 = 1 + 1 => 2
-    //....
-    // 3/4 = 3 + 1 => 4
-    // 4/4 = 0 + 1 => 1
 
     const upcomingVideoIndex = (currentIndex % totalVideos )+1;
 
@@ -149,6 +163,7 @@ const Hero = () => {
         <h1 className='special-font hero-heading absolute bottom-5 text-black'>
                 J<b>o</b>urney
         </h1>
+        
     </div>
   )
 }

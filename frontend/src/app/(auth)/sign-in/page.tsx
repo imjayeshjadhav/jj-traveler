@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
 import { handleError, handleSuccess } from "@/lib/utils";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 const SignIn = () => {
 
   const [logInInfo, setlogInInfo] = useState({
@@ -108,6 +109,7 @@ const SignIn = () => {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
     </>
   );
